@@ -1,0 +1,12 @@
+body {
+    font-size: 18px;
+}
+
+section {
+    line-height: 1.5rem;
+}
+
+button, .btn {
+    background-color: #59437D;
+    color: #ffffff;
+}

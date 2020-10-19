@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>Javascript Quiz</title>
 </head>
 <body>
-    <header>
-        <nav>
+    <header class="nav mx-3 mb-5 p-2">
+        <nav class="text-left mr-auto">
             <a href="./highscores.html">View Highscores</a>
         </nav>
-        <div>Time: <span id="time">0</span></div>
+        <div class="text-right ml-auto">Time: <span id="time">0</span></div>
     </header>
-    <main>
-        <section id="start-page">
-            <h1>Coding Quiz Challenge</h1>
-            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-            <button id="start-btn">Start Quiz</button>
+    <main class="row">
+        <section id="start-page" class="col-md-6 m-auto text-center">
+            <h1 class="font-weight-bold">Coding Quiz Challenge</h1>
+            <br>
+            <p class="w-100 m-auto">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+            <br>
+            <button id="start-btn" class="btn">Start Quiz</button>
         </section>
     </main>
     <script src="./assets/scripts/index.js"></script>
