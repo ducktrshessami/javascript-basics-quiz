@@ -2,6 +2,12 @@
 var currentQuestion, score, secRemaining, timeout, interval;
 var mainEl = document.querySelector("main");
 var timeEl = document.querySelector("#time");
+var settings = { // Things are now adjustable from here
+    startingTime: 60,
+    timePenalty: 10,
+    scorePenalty: 1,
+    evalMessageTime: 1.5
+};
 var questions = [ // A proper quiz wouldn't have the answers in plaintext >.>
     {
         question: "Commonly used data types DO NOT include:",
@@ -66,7 +72,7 @@ function renderTime() {
 Begin counting down
 */
 function startTimer() {
-    secRemaining = 75; // Starting time
+    secRemaining = settings.startingTime; // Starting time
     interval = setInterval(decrementTimer, 1000);
     renderTime();
 }
@@ -264,7 +270,7 @@ function message(text) {
     clearTimeout(timeout);
     timeout = setTimeout(function() {
         msgEl.remove();
-    }, 1000);
+    }, settings.evalMessageTime * 1000);
 }
 
 /*
@@ -313,10 +319,10 @@ function validateAnswer(choice) {
         return true;
     }
     else {
-        score = Math.max(0, score - 1);
+        score = Math.max(0, score - settings.scorePenalty);
 
         // Time penalty
-        secRemaining -= 15;
+        secRemaining -= settings.timePenalty;
         checkTime();
         renderTime();
 
