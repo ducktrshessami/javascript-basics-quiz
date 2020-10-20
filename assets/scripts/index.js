@@ -313,7 +313,7 @@ function validateAnswer(choice) {
         return true;
     }
     else {
-        score--;
+        score = Math.max(0, score - 1);
 
         // Time penalty
         secRemaining -= 15;
