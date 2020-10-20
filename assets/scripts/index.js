@@ -72,11 +72,12 @@ function questionPage() {
     // Content section
     section = document.createElement("section");
     section.id = "question-page";
-    section.className = "col-md-6 m-auto";
+    section.className = "col-md-6 m-auto p-5";
 
     // Question header
     questionEl = document.createElement("h1");
     questionEl.id = "question";
+    questionEl.className = "font-weight-bold";
 
     // Line break
     divider = document.createElement("br");
@@ -97,9 +98,47 @@ function questionPage() {
 Change page structure and display score screen
 */
 function scorePage() {
-    let section, header, display, form;
+    let section, header, display, form, formText, initials, submit;
 
     clearContent();
+
+    // Content section
+    section = document.createElement("section");
+    section.id = "score-page";
+    section.className = "col-md-6 m-auto p-5";
+
+    // End screen header
+    header = document.createElement("h1");
+    header.className = "font-weight-bold";
+    header.textContent = "All done!";
+
+    // Score display
+    display = document.createElement("p");
+    display.textContent = "Your final score is " + score + ".";
+
+    // Initials form for highscores
+    form = document.createElement("form");
+    form.className = "row";
+    form.textContent = "Enter initials:";
+
+    // Text for the form
+    // formText = document.createElement("")
+
+    // Input for user initials
+    initials = document.createElement("input");
+    initials.id = "initials";
+    
+    // Submit button
+    submit = document.createElement("button");
+    submit.className = "btn";
+    submit.textContent = "Submit";
+    submit.addEventListener("click", submitInitials);
+    
+    // Append to parents
+    mainEl.appendChild(section);
+    section.appendChild(header);
+    section.appendChild(display);
+    section.appendChild(form);
 }
 
 /*
@@ -222,6 +261,14 @@ function validateAnswer(choice) {
 */
 function endQuiz() {
     scorePage();
+}
+
+/*
+
+event - click event
+*/
+function submitInitials(event) {
+    event.preventDefault();
 }
 
 // Event listeners
