@@ -339,11 +339,32 @@ event - click event
 function submitInitials(event) {
     event.preventDefault();
 
-    // Store score and initials
+    let initialsEl = document.querySelector("#initials");
 
-    // Redirect to highscores page
-    location.href = "./highscores.html";
+    // Only submit if name has been entered
+    if (initialsEl.value) {
+        setScore(initialsEl.value);
+        location.href = "./highscores.html"; // Redirect to highscores page
+    }
 }
 
-// Event listeners
+/*
+Store score and handle new user if need be
+*/
+function setScore(name) {
+    let highscores = localStorage.getItem("highscores"); // Retrieve stored scores
+
+    // Handle no stored scores
+    if (!highscores) {
+        highscores = [];
+    }
+    else {
+        highscores = JSON.parse(highscores);
+    }
+
+    highscores.push({name: name, score: score}); // Add current score
+    localStorage.setItem("highscores", JSON.stringify(highscores)); // Store scores
+}
+
+// Start
 document.querySelector("#start-btn").addEventListener("click", startQuiz);
