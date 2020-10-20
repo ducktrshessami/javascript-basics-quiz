@@ -261,7 +261,7 @@ function message(text) {
     if (!(msgEl = document.querySelector("#msg"))) {
         msgEl = document.createElement("p")
         msgEl.id = "msg";
-        msgEl.className = "mt-4 py-3";
+        msgEl.className = "mt-4 py-3 font-italic";
         document.querySelector("section").appendChild(msgEl);
     }
     msgEl.textContent = text; // Set text
