@@ -1,4 +1,5 @@
 // Define vars
+var currentQuestion;
 var mainEl = document.querySelector("main");
 var questions = [ // A proper quiz wouldn't have the answers in plaintext >.>
     {
@@ -67,6 +68,8 @@ i - the index of the question in the 'questions' constant
 function displayQuestion(i) {
     let questionEl, choiceList;
 
+    currentQuestion = i;
+
     if (!document.querySelector("#question-page")) { // Page layout
         questionPage();
     }
@@ -117,7 +120,7 @@ event - click event
 */
 function choiceSelect(event) {
     if (event.target.matches("button")) {
-        console.log(event.target.getAttribute("data-value"));
+        alert(event.target.getAttribute("data-value") == questions[currentQuestion].answer);
     }
 }
 
