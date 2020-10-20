@@ -191,14 +191,18 @@ Display a message below the content
 text - the text to be displayed
 */
 function message(text) {
-    // Create message
-    let msgEl = document.createElement("p")
-    msgEl.id = "msg";
-    msgEl.className = "mt-4 py-3";
-    msgEl.textContent = text;
+    let msgEl;
+
+    // Update existing message element or create a new one
+    if (!(msgEl = document.querySelector("#msg"))) {
+        msgEl = document.createElement("p")
+        msgEl.id = "msg";
+        msgEl.className = "mt-4 py-3";
+        document.querySelector("section").appendChild(msgEl);
+    }
+    msgEl.textContent = text; // Set text
 
     // Show message for 1 second
-    document.querySelector("section").appendChild(msgEl);
     clearTimeout(timeout);
     timeout = setTimeout(function() {
         msgEl.remove();
