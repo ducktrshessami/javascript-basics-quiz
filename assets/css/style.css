@@ -15,7 +15,6 @@ button, .btn {
     border-top: #cccccc 0.5rem solid;
 }
 
-/* Bootstrap only has 2 list styles */
-.list-decimal {
-    list-style: decimal;
+#score-list li:nth-child(odd) {
+    background-color: #F4EFFD;
 }
