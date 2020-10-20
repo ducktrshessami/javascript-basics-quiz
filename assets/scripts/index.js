@@ -1,5 +1,5 @@
 // Define vars
-var currentQuestion, timeout;
+var currentQuestion, score, timeout;
 var mainEl = document.querySelector("main");
 var questions = [ // A proper quiz wouldn't have the answers in plaintext >.>
     {
@@ -61,11 +61,26 @@ function clearContent() {
     mainEl.innerHTML = "";
 }
 
+function message(text) {
+    // Create message
+    let msgEl = document.createElement("p")
+    msgEl.id = "msg";
+    msgEl.className = "mt-4 py-3";
+    msgEl.textContent = text;
+
+    // Show message for 1 second
+    document.querySelector("section").appendChild(msgEl);
+    clearTimeout(timeout);
+    timeout = setTimeout(function() {
+        msgEl.remove();
+    }, 1000);
+}
+
 /*
 Change page structure for question screen
 */
 function questionPage() {
-    let section, questionEl, divider, choiceList, message;
+    let section, questionEl, divider, choiceList;
     
     clearContent();
 
@@ -86,18 +101,20 @@ function questionPage() {
     choiceList.id = "choice-list";
     choiceList.className = "list-unstyled";
 
-    // Answer validation message
-    message = document.createElement("p");
-    message.id = "msg";
-    message.className = "mt-4 py-3";
-    message.style.display = "none";
-
     // Append to parents
     mainEl.appendChild(section);
     section.appendChild(questionEl);
     section.appendChild(divider);
     section.appendChild(choiceList);
-    section.appendChild(message);
+}
+
+/*
+Change page structure and display score screen
+*/
+function scorePage() {
+    let section, header, display, form;
+
+    clearContent();
 }
 
 /*
@@ -108,8 +125,6 @@ i - the index of the question in the 'questions' constant
 */
 function displayQuestion(i) {
     let questionEl, choiceList;
-
-    currentQuestion = i;
 
     if (!document.querySelector("#question-page")) { // Page layout
         questionPage();
@@ -147,11 +162,18 @@ function displayQuestion(i) {
 }
 
 /*
-Start timer and display question screen
+Start timer and display question screen (except in the exact opposite order from that)
 */
 function startQuiz() {
+    // Set vars
+    score = 0;
+    currentQuestion = 0;
+    
+    // Display first question
     questionPage();
-    displayQuestion(0);
+    displayQuestion(currentQuestion);
+
+    //Start timer
 }
 
 /*
@@ -160,33 +182,41 @@ User clicked a choice on a question: verify answer and display next question
 event - click event
 */
 function choiceSelect(event) {
+    let correct = validateAnswer(event.target.getAttribute("data-value"));
+
     if (event.target.matches("button")) {
-        validateAnswer(event.target.getAttribute("data-value"));
+        if (++currentQuestion >= questions.length) {
+            endQuiz();
+        }
+        else {
+            displayQuestion(currentQuestion);
+        }
     }
+
+    message(correct ? "Correct!" : "Wrong!");
 }
 
 /*
-Display whether the selected choice is the correct answer or not
+Evaluate answer and change score
 @params:
 choice - the selected choice data-value
 */
 function validateAnswer(choice) {
-    let message = document.querySelector("#msg");
-
-    // Set message
     if (choice == questions[currentQuestion].answer) {
-        message.textContent = "Correct!";
+        score++;
+        return true;
     }
     else {
-        message.textContent = "Wrong!";
+        score--;
+        return false;
     }
+}
 
-    // Show message for 1 second
-    message.style.display = "";
-    clearTimeout(timeout);
-    timeout = setTimeout(function() {
-        message.style.display = "none";
-    }, 1000);
+/*
+
+*/
+function endQuiz() {
+    scorePage();
 }
 
 // Event listeners
