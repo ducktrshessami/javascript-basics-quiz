@@ -98,7 +98,7 @@ function questionPage() {
 Change page structure and display score screen
 */
 function scorePage() {
-    let section, header, display, form, formText, initials, submit;
+    let section, header, divider1, display, divider2, form, formText, initials, submit;
 
     clearContent();
 
@@ -112,33 +112,46 @@ function scorePage() {
     header.className = "font-weight-bold";
     header.textContent = "All done!";
 
+    // Line break
+    divider1 = document.createElement("br");
+
     // Score display
     display = document.createElement("p");
     display.textContent = "Your final score is " + score + ".";
 
+    // Line break, but again
+    divider2 = document.createElement("br");
+
     // Initials form for highscores
     form = document.createElement("form");
-    form.className = "row";
-    form.textContent = "Enter initials:";
 
     // Text for the form
-    // formText = document.createElement("")
+    formText = document.createElement("span");
+    formText.className = "mr-1";
+    formText.textContent = "Enter initials:";
 
     // Input for user initials
     initials = document.createElement("input");
     initials.id = "initials";
+    initials.type = "text";
+    initials.className = "mx-1";
     
     // Submit button
     submit = document.createElement("button");
-    submit.className = "btn";
+    submit.className = "btn ml-1";
     submit.textContent = "Submit";
     submit.addEventListener("click", submitInitials);
     
     // Append to parents
     mainEl.appendChild(section);
     section.appendChild(header);
+    section.appendChild(divider1);
     section.appendChild(display);
+    section.appendChild(divider2);
     section.appendChild(form);
+    form.appendChild(formText);
+    form.appendChild(initials);
+    form.appendChild(submit);
 }
 
 /*
@@ -230,18 +243,18 @@ User clicked a choice on a question: verify answer and display next question
 event - click event
 */
 function choiceSelect(event) {
-    let correct = validateAnswer(event.target.getAttribute("data-value"));
-
     if (event.target.matches("button")) {
+        let correct = validateAnswer(event.target.getAttribute("data-value"));
+
         if (++currentQuestion >= questions.length) {
             endQuiz();
         }
         else {
             displayQuestion(currentQuestion);
         }
-    }
 
-    message(correct ? "Correct!" : "Wrong!");
+        message(correct ? "Correct!" : "Wrong!");
+    }
 }
 
 /*
@@ -261,14 +274,17 @@ function validateAnswer(choice) {
 }
 
 /*
-
+Stop timer and display score screen
 */
 function endQuiz() {
+    // Stop timer
+
+    // Display final score
     scorePage();
 }
 
 /*
-
+Handle player name for highscore
 event - click event
 */
 function submitInitials(event) {
