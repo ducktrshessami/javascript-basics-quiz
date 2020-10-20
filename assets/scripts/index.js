@@ -1,6 +1,7 @@
 // Define vars
-var currentQuestion, score, timeout;
+var currentQuestion, score, secRemaining, timeout, interval;
 var mainEl = document.querySelector("main");
+var timeEl = document.querySelector("#time");
 var questions = [ // A proper quiz wouldn't have the answers in plaintext >.>
     {
         question: "Commonly used data types DO NOT include:",
@@ -53,6 +54,50 @@ var questions = [ // A proper quiz wouldn't have the answers in plaintext >.>
         answer: 4
     }
 ];
+
+/*
+Display time remaining
+*/
+function renderTime() {
+    timeEl.textContent = secRemaining;
+}
+
+/*
+Begin counting down
+*/
+function startTimer() {
+    secRemaining = 75; // Starting time
+    interval = setInterval(decrementTimer, 1000);
+    renderTime();
+}
+
+/*
+Countdown and end the quiz at 0
+*/
+function decrementTimer() {
+    secRemaining--;
+    checkTime();
+    renderTime();
+}
+
+/*
+Check if time's up
+*/
+function checkTime() {
+    if (secRemaining <= 0) { // Time's up
+        secRemaining = 0;
+        clearInterval(interval);
+        endQuiz();
+    }
+}
+
+/*
+Stop counting down
+*/
+function stopTimer() {
+    secRemaining = 0; // Ensure no negative time
+    clearInterval(interval);
+}
 
 /*
 Clear all content inside the main tag
@@ -234,7 +279,7 @@ function startQuiz() {
     questionPage();
     displayQuestion(currentQuestion);
 
-    //Start timer
+    startTimer();
 }
 
 /*
@@ -269,6 +314,12 @@ function validateAnswer(choice) {
     }
     else {
         score--;
+
+        // Time penalty
+        secRemaining -= 15;
+        checkTime();
+        renderTime();
+
         return false;
     }
 }
@@ -277,9 +328,7 @@ function validateAnswer(choice) {
 Stop timer and display score screen
 */
 function endQuiz() {
-    // Stop timer
-
-    // Display final score
+    stopTimer();
     scorePage();
 }
 
@@ -289,6 +338,11 @@ event - click event
 */
 function submitInitials(event) {
     event.preventDefault();
+
+    // Store score and initials
+
+    // Redirect to highscores page
+    location.href = "./highscores.html";
 }
 
 // Event listeners
