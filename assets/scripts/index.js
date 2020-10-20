@@ -363,6 +363,7 @@ function setScore(name) {
     }
 
     highscores.push({name: name, score: score}); // Add current score
+    highscores.sort((a, b) => b.score - a.score); // Sort scores
     localStorage.setItem("highscores", JSON.stringify(highscores)); // Store scores
 }
 
