@@ -10,3 +10,7 @@ button, .btn {
     background-color: #59437D;
     color: #ffffff;
 }
+
+#msg {
+    border-top: #cccccc 0.5rem solid;
+}

@@ -1,5 +1,5 @@
 // Define vars
-var currentQuestion;
+var currentQuestion, timeout;
 var mainEl = document.querySelector("main");
 var questions = [ // A proper quiz wouldn't have the answers in plaintext >.>
     {
@@ -87,8 +87,9 @@ function questionPage() {
     choiceList.className = "list-unstyled";
 
     // Answer validation message
-    message = document.createElement("span");
+    message = document.createElement("p");
     message.id = "msg";
+    message.className = "mt-4 py-3";
     message.style.display = "none";
 
     // Append to parents
@@ -160,8 +161,32 @@ event - click event
 */
 function choiceSelect(event) {
     if (event.target.matches("button")) {
-        alert(event.target.getAttribute("data-value") == questions[currentQuestion].answer);
+        validateAnswer(event.target.getAttribute("data-value"));
     }
+}
+
+/*
+Display whether the selected choice is the correct answer or not
+@params:
+choice - the selected choice data-value
+*/
+function validateAnswer(choice) {
+    let message = document.querySelector("#msg");
+
+    // Set message
+    if (choice == questions[currentQuestion].answer) {
+        message.textContent = "Correct!";
+    }
+    else {
+        message.textContent = "Wrong!";
+    }
+
+    // Show message for 1 second
+    message.style.display = "";
+    clearTimeout(timeout);
+    timeout = setTimeout(function() {
+        message.style.display = "none";
+    }, 1000);
 }
 
 // Event listeners
