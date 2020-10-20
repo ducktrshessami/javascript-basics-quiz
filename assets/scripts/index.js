@@ -61,21 +61,6 @@ function clearContent() {
     mainEl.innerHTML = "";
 }
 
-function message(text) {
-    // Create message
-    let msgEl = document.createElement("p")
-    msgEl.id = "msg";
-    msgEl.className = "mt-4 py-3";
-    msgEl.textContent = text;
-
-    // Show message for 1 second
-    document.querySelector("section").appendChild(msgEl);
-    clearTimeout(timeout);
-    timeout = setTimeout(function() {
-        msgEl.remove();
-    }, 1000);
-}
-
 /*
 Change page structure for question screen
 */
@@ -159,6 +144,26 @@ function displayQuestion(i) {
 
     // Listen for choice
     choiceList.addEventListener("click", choiceSelect);
+}
+
+/*
+Display a message below the content
+@params:
+text - the text to be displayed
+*/
+function message(text) {
+    // Create message
+    let msgEl = document.createElement("p")
+    msgEl.id = "msg";
+    msgEl.className = "mt-4 py-3";
+    msgEl.textContent = text;
+
+    // Show message for 1 second
+    document.querySelector("section").appendChild(msgEl);
+    clearTimeout(timeout);
+    timeout = setTimeout(function() {
+        msgEl.remove();
+    }, 1000);
 }
 
 /*
