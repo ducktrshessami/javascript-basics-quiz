@@ -43,6 +43,7 @@ function questionPage() {
     // Choice list buttons
     choiceList = document.createElement("ul");
     choiceList.id = "choice-list";
+    choiceList.className = "list-unstyled";
 
     // Answer validation message
     message = document.createElement("span");
@@ -84,7 +85,10 @@ function displayQuestion(i) {
         choiceEl = document.createElement("li");
         choiceBtn = document.createElement("button");
 
-        // Button properties
+        // List item
+        choiceEl.className = "mb-1";
+
+        // Choice button
         choiceBtn.className = "btn";
         choiceBtn.setAttribute("data-value", j + 1);
         choiceBtn.textContent = (j + 1) + ". " + questions[i].choices[j];
