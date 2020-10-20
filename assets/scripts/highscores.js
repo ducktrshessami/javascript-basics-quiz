@@ -7,13 +7,23 @@ function renderScores() {
     let highscores = getScores();
     let scoreList = document.querySelector("#score-list");
 
+    scoreList.innerHTML = ""; // Clear list
+
+    // Render each score
     for (let i = 0; i < highscores.length; i++) {
         let item = document.createElement("li");
-        if (typeof(highscores[i]) != "string") {
-            item.textContent = (i + 1) + ". " + highscores[i].name + " - " + highscores[i].score;
-        }
+        item.textContent = (i + 1) + ". " + highscores[i].name + " - " + highscores[i].score;
         scoreList.appendChild(item);
     };
+
+    // Fill blank space in the case of no scores
+    if (!scoreList.childElementCount) {
+        let item = document.createElement("li");
+        let blank = document.createElement("br");
+
+        item.appendChild(blank);
+        scoreList.appendChild(item);
+    }
 }
 
 /*
@@ -24,8 +34,7 @@ function getScores() {
 
     // Handle no stored scores
     if (!highscores) {
-        document.querySelector("#score-list").className = "list-unstyled"; // Empty list
-        return [""];
+        return [];
     }
     else {
         return JSON.parse(highscores);
@@ -43,7 +52,7 @@ function restart() {
 Clear all stored highscores
 */
 function clearScores() {
-    localStorage.setItem("highscores", []);
+    localStorage.setItem("highscores", "[]");
     renderScores();
 }
 
