@@ -1,6 +1,17 @@
 # javascript-basics-quiz
 
-asdf
+A Javascript focused coding quiz challenge
+
+Currently the user is given:
+- 5 multiple-choice questions about Javascript fundamentals
+- 60 seconds to complete the challenge
+- 1 point per question answered correctly
+- -1 point per question answered incorrectly
+- -10 seconds per question answered incorrectly
+
+Questions and quiz configuration can be modified in the variables at the top of [index.js](./assets/scripts/index.js).
+
+Scores are only tracked locally.
 
 ## Screenshots
 
