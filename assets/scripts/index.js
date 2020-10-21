@@ -14,7 +14,7 @@ Question object format:
 {
     question: string
     choices: [string]
-    answer: index in array + 1
+    answer: Number(index in array + 1)
 }
 */
 var questions = [ // A proper quiz wouldn't have the answers in plaintext >.>
