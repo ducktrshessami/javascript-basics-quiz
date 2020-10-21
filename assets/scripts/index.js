@@ -8,6 +8,15 @@ var settings = { // Things are now adjustable from here
     scorePenalty: 1,
     evalMessageTime: 1.5
 };
+
+/*
+Question object format:
+{
+    question: string
+    choices: [string]
+    answer: index in array + 1
+}
+*/
 var questions = [ // A proper quiz wouldn't have the answers in plaintext >.>
     {
         question: "Commonly used data types DO NOT include:",
