@@ -101,7 +101,6 @@ Check if time's up
 function checkTime() {
     if (secRemaining <= 0) { // Time's up
         secRemaining = 0;
-        clearInterval(interval);
         endQuiz();
     }
 }
@@ -112,6 +111,7 @@ Stop counting down
 function stopTimer() {
     secRemaining = 0; // Ensure no negative time
     clearInterval(interval);
+    renderTime();
 }
 
 /*
