@@ -306,7 +306,7 @@ function choiceSelect(event) {
     if (event.target.matches("button")) {
         let correct = validateAnswer(event.target.getAttribute("data-value"));
 
-        if (++currentQuestion >= questions.length) {
+        if (++currentQuestion >= questions.length || secRemaining <= 0) {
             endQuiz();
         }
         else {
@@ -332,7 +332,6 @@ function validateAnswer(choice) {
 
         // Time penalty
         secRemaining -= settings.timePenalty;
-        checkTime();
         renderTime();
 
         return false;
@@ -343,6 +342,7 @@ function validateAnswer(choice) {
 Stop timer and display score screen
 */
 function endQuiz() {
+    currentQuestion = questions.length;
     stopTimer();
     scorePage();
 }
